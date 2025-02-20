@@ -1,14 +1,19 @@
 import { Button } from '@/components/ui/button';
-import { CalendarCheck, CalendarIcon, GitBranchPlus } from 'lucide-react';
+import {
+	CalendarCheck2,
+	CalendarDays,
+	CalendarIcon,
+	GitFork,
+} from 'lucide-react';
 
 const Sidebar = () => {
 	return (
-		<div className="w-16 md:w-48 h-screen overflow-y-auto bg-background py-4">
+		<div className="w-16 md:w-48 h-screen overflow-y-auto bg-background p-4">
 			<div className="flex items-center justify-center md:justify-start gap-2 mb-8">
-				<div className="size-8 bg-indigo-500 rounded-lg flex items-center justify-center">
-					<CalendarIcon className="size-5 text-white" />
+				<div className="rounded-lg flex items-center justify-center">
+					<CalendarDays className="size-8 text-indigo-500" />
 				</div>
-				<span className="font-semibold text-lg hidden md:block">
+				<span className="font-semibold text-xl hidden md:block">
 					Car Booking
 				</span>
 			</div>
@@ -17,22 +22,22 @@ const Sidebar = () => {
 					variant="ghost"
 					className="w-full justify-center md:justify-start gap-2"
 				>
-					<CalendarIcon className="size-4" />
-					<span className="hidden md:block">Calendar</span>
+					<CalendarIcon className="size-6" />
+					<span className="hidden md:block text-gray-500">Calendar</span>
 				</Button>
 				<Button
 					variant="ghost"
 					className="w-full justify-center md:justify-start gap-2"
 				>
-					<CalendarCheck className="size-4" />
-					<span className="hidden md:block">Add Booking</span>
+					<CalendarCheck2 className="size-6" />
+					<span className="hidden md:block text-gray-500">Add Booking</span>
 				</Button>
 				<Button
 					variant="ghost"
 					className="w-full justify-center md:justify-start gap-2"
 				>
-					<GitBranchPlus className="size-4" />
-					<span className="hidden md:block">Workflows</span>
+					<GitFork className="size-6 rotate-90" />
+					<span className="hidden md:block text-gray-500">Workflows</span>
 				</Button>
 			</div>
 		</div>

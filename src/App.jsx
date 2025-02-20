@@ -1,17 +1,24 @@
 import { Bell, ChevronDown, MessageSquare, Plus } from 'lucide-react';
+import { useState } from 'react';
+import AddBookingDialog from './components/AddBooking';
+import CustomCalendar from './components/CustomCalendar';
 import Sidebar from './components/Sidebar';
 import { Avatar, AvatarFallback, AvatarImage } from './components/ui/avatar';
 import { Button } from './components/ui/button';
 
 export default function App() {
+	const [dialogOpen, setDialogOpen] = useState(false);
 	return (
-		<div className="min-h-screen flex bg-background px-4">
+		<div className="min-h-screen flex bg-background">
 			<Sidebar />
 			<main className="flex-1 flex flex-col h-screen overflow-y-auto">
 				<header className="h-16 py-4 flex items-center justify-between">
 					<h1 className="text-2xl font-semibold">Calendar</h1>
 					<div className="flex items-center gap-4">
-						<Button className="bg-indigo-500 hover:bg-indigo-400">
+						<Button
+							className="bg-indigo-500 hover:bg-indigo-400"
+							onClick={() => setDialogOpen(true)}
+						>
 							<Plus className="size-4" />
 							Add Booking
 						</Button>
@@ -33,7 +40,9 @@ export default function App() {
 						</Button>
 					</div>
 				</header>
+				<CustomCalendar />
 			</main>
+			<AddBookingDialog open={dialogOpen} onOpenChange={setDialogOpen} />
 		</div>
 	);
 }
