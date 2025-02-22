@@ -1,12 +1,17 @@
+import EventCalendar from '@/EventCalendar';
 import { useEvents } from '@/hooks';
-import CalendarApp from './CalendarApp';
+import { Loader2 } from 'lucide-react';
 
 const CustomCalendar = () => {
-	const { loading } = useEvents();
+	const { events, loading } = useEvents();
 	if (loading) {
-		return <div>Loading...</div>;
+		return (
+			<div className="min-h-screen">
+				<Loader2 className="animate-spin" />
+			</div>
+		);
 	}
-	return <CalendarApp />;
+	return <EventCalendar events={events} />;
 };
 
 export default CustomCalendar;

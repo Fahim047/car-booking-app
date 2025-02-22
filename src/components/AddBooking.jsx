@@ -7,41 +7,44 @@ import { Calendar as CalendarComponent } from './ui/calendar';
 import { Checkbox } from './ui/checkbox';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 import { Input } from './ui/input';
+import { Label } from './ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import {
 	Select,
 	SelectContent,
+	SelectGroup,
 	SelectItem,
+	SelectLabel,
 	SelectTrigger,
 	SelectValue,
 } from './ui/select';
 const AddBookingDialog = ({ open, onOpenChange }) => {
 	const { addEvent } = useEvents();
 	const [title, setTitle] = useState('');
-	const [car, setCar] = useState(null);
-	const [bookingDate, setBookingDate] = useState(null);
-	const [endDate, setEndDate] = useState(null);
+	const [car, setCar] = useState('');
+	const [bookingDate, setBookingDate] = useState('');
+	const [endDate, setEndDate] = useState('');
 	const [selectedDays, setSelectedDays] = useState({
-		S: false,
-		S2: false,
-		M: false,
-		T: true,
-		W: false,
-		T2: false,
-		F: false,
+		Sat: false,
+		Sun: false,
+		Mon: false,
+		Tue: true,
+		Wed: false,
+		Thu: false,
+		Fri: false,
 	});
-	const [startTime, setStartTime] = useState(null);
-	const [endTime, setEndTime] = useState(null);
-	const [repeatOn, setRepeatOn] = useState(null);
+	const [startTime, setStartTime] = useState('');
+	const [endTime, setEndTime] = useState('');
+	const [repeatOn, setRepeatOn] = useState('');
 
 	const weekDays = [
-		{ key: 'S', label: 'S' },
-		{ key: 'S2', label: 'S' },
-		{ key: 'M', label: 'M' },
-		{ key: 'T', label: 'T' },
-		{ key: 'W', label: 'W' },
-		{ key: 'T2', label: 'T' },
-		{ key: 'F', label: 'F' },
+		{ key: 'Sat', label: 'S' },
+		{ key: 'Sun', label: 'S' },
+		{ key: 'Mon', label: 'M' },
+		{ key: 'Tue', label: 'T' },
+		{ key: 'Wed', label: 'W' },
+		{ key: 'Thu', label: 'T' },
+		{ key: 'Fri', label: 'F' },
 	];
 
 	const handleDayToggle = (day) => {
@@ -71,12 +74,7 @@ const AddBookingDialog = ({ open, onOpenChange }) => {
 			start: formatDateTime(bookingDate, startTime),
 			end: formatDateTime(endDate, endTime),
 		};
-		addEvent({
-			title: 'test',
-			id: crypto.randomUUID(),
-			start: '2025-02-22',
-			end: '2025-02-23',
-		});
+		addEvent(newBooking);
 		console.log('Form Data:', formData);
 		onOpenChange(false);
 	};
@@ -105,42 +103,51 @@ const AddBookingDialog = ({ open, onOpenChange }) => {
 				<form onSubmit={handleSubmit}>
 					<div className="space-y-6">
 						<div className="space-y-4">
-							<h3 className="text-[#6C5DD3] font-medium">Basic information</h3>
+							<h3 className="text-indigo-400 font-medium">Basic information</h3>
 
 							<div className="grid grid-cols-2 gap-4">
 								<div className="space-y-2">
-									<label className="text-sm font-medium">Subject</label>
+									<Label htmlFor="title">Subject</Label>
 									<Input
 										name="title"
+										id="title"
 										placeholder="Write a short note"
-										className="bg-gray-50"
+										className="bg-gray-50 rounded-2xl"
 										value={title}
 										onChange={(e) => setTitle(e.target.value)}
 									/>
 								</div>
 
 								<div className="space-y-2">
-									<label className="text-sm font-medium">Select Car</label>
-									<Select value={car} onValueChange={setCar}>
-										<SelectTrigger className="bg-gray-50">
+									<Label htmlFor="car">Select Car</Label>
+									<Select
+										id="car"
+										name="car"
+										value={car}
+										onValueChange={setCar}
+									>
+										<SelectTrigger className="bg-gray-50 rounded-2xl">
 											<SelectValue placeholder="Select a car" />
 										</SelectTrigger>
 										<SelectContent>
-											<SelectItem value="toyota">Toyota</SelectItem>
-											<SelectItem value="honda">Honda</SelectItem>
-											<SelectItem value="ford">Ford</SelectItem>
+											<SelectGroup>
+												<SelectLabel>Car</SelectLabel>
+												<SelectItem value="toyota">Toyota</SelectItem>
+												<SelectItem value="honda">Honda</SelectItem>
+												<SelectItem value="ford">Ford</SelectItem>
+											</SelectGroup>
 										</SelectContent>
 									</Select>
 								</div>
 							</div>
 
 							<div className="space-y-2">
-								<label className="text-sm font-medium">Booking Date</label>
+								<Label htmlFor="bookingDate">Booking Date</Label>
 								<Popover>
 									<PopoverTrigger asChild>
 										<Button
 											variant="outline"
-											className="w-full justify-start text-left font-normal bg-gray-50"
+											className="w-full justify-start text-left font-normal bg-gray-50 rounded-2xl"
 										>
 											<Calendar className="mr-2 h-4 w-4" />
 											{bookingDate
@@ -160,12 +167,12 @@ const AddBookingDialog = ({ open, onOpenChange }) => {
 
 							<div className="grid grid-cols-2 gap-4">
 								<div className="space-y-2">
-									<label className="text-sm font-medium">Start Time</label>
+									<Label htmlFor="startTime">Start Time</Label>
 									<div className="relative">
 										<Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
 										<input
 											type="time"
-											className="w-full p-2 pl-10 border rounded-md bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+											className="w-full p-2 pl-10 border rounded-2xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
 											value={startTime}
 											onChange={(e) => setStartTime(e.target.value)}
 										/>
@@ -173,12 +180,12 @@ const AddBookingDialog = ({ open, onOpenChange }) => {
 								</div>
 
 								<div className="space-y-2">
-									<label className="text-sm font-medium">End Time</label>
+									<Label htmlFor="endTime">End Time</Label>
 									<div className="relative">
 										<Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
 										<input
 											type="time"
-											className="w-full p-2 pl-10 border rounded-md bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+											className="w-full p-2 pl-10 border rounded-2xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
 											placeholder="Pick time"
 											value={endTime}
 											onChange={(e) => setEndTime(e.target.value)}
@@ -189,18 +196,25 @@ const AddBookingDialog = ({ open, onOpenChange }) => {
 						</div>
 
 						<div className="space-y-4">
-							<h3 className="text-[#6C5DD3] font-medium">Repeat Option</h3>
-
 							<div className="space-y-2">
-								<label className="text-sm font-medium">Repeat On</label>
-								<Select value={repeatOn} onValueChange={setRepeatOn}>
-									<SelectTrigger className="bg-gray-50">
+								<h3 className="text-indigo-400 font-medium">Repeat Option</h3>
+								<Label htmlFor="repeatOn">Repeat On</Label>
+								<Select
+									name="repeatOn"
+									id="repeatOn"
+									value={repeatOn}
+									onValueChange={setRepeatOn}
+								>
+									<SelectTrigger className="bg-gray-50 rounded-2xl">
 										<SelectValue placeholder="Select frequency" />
 									</SelectTrigger>
 									<SelectContent>
-										<SelectItem value="daily">Daily</SelectItem>
-										<SelectItem value="weekly">Weekly</SelectItem>
-										<SelectItem value="monthly">Monthly</SelectItem>
+										<SelectGroup>
+											<SelectLabel>Frequency</SelectLabel>
+											<SelectItem value="daily">Daily</SelectItem>
+											<SelectItem value="weekly">Weekly</SelectItem>
+											<SelectItem value="monthly">Monthly</SelectItem>
+										</SelectGroup>
 									</SelectContent>
 								</Select>
 							</div>
@@ -214,12 +228,7 @@ const AddBookingDialog = ({ open, onOpenChange }) => {
 											onCheckedChange={() => handleDayToggle(key)}
 											className="data-[state=checked]:bg-indigo-400 data-[state=checked]:border-indigo-400"
 										/>
-										<label
-											htmlFor={key}
-											className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-										>
-											{label}
-										</label>
+										<Label htmlFor={key}>{label}</Label>
 									</div>
 								))}
 							</div>
@@ -230,7 +239,7 @@ const AddBookingDialog = ({ open, onOpenChange }) => {
 									<PopoverTrigger asChild>
 										<Button
 											variant="outline"
-											className="w-full justify-start text-left font-normal bg-gray-50"
+											className="w-full justify-start text-left font-normal bg-gray-50 rounded-2xl"
 										>
 											<Calendar className="mr-2 h-4 w-4" />
 											{endDate ? endDate.toDateString() : 'Select a date'}
@@ -249,10 +258,17 @@ const AddBookingDialog = ({ open, onOpenChange }) => {
 					</div>
 
 					<div className="flex justify-between mt-6">
-						<Button type="button" variant="outline">
+						<Button
+							type="button"
+							variant="outline"
+							className="text-indigo-500 hover:text-indigo-500 border-indigo-500 hover:bg-transparent rounded-2xl cursor-not-allowed"
+						>
 							Advanced
 						</Button>
-						<Button type="submit" className="bg-[#6C5DD3] hover:bg-[#5C4DC3]">
+						<Button
+							type="submit"
+							className="bg-indigo-500 hover:bg-indigo-600 cursor-pointer rounded-2xl"
+						>
 							Save
 						</Button>
 					</div>
