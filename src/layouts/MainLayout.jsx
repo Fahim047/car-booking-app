@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
 import { useState } from 'react';
 import { Outlet } from 'react-router';
+import { Toaster } from 'sonner';
 
 const MainLayout = () => {
 	const [dialogOpen, setDialogOpen] = useState(false);
@@ -15,6 +16,7 @@ const MainLayout = () => {
 					<Outlet />
 				</main>
 				<AddBookingDialog open={dialogOpen} onOpenChange={setDialogOpen} />
+				<Toaster richColors position="top-right" />
 			</div>
 		</>
 	);

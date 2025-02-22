@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 import { Calendar, Clock, MoreHorizontal, X } from 'lucide-react';
 import { useState } from 'react';
+import { toast } from 'sonner';
 import { useEvents } from '../hooks';
 import { Button } from './ui/button';
 import { Calendar as CalendarComponent } from './ui/calendar';
@@ -68,6 +69,18 @@ const AddBookingDialog = ({ open, onOpenChange }) => {
 			selectedDays,
 			endDate,
 		};
+		if (
+			!title ||
+			!car ||
+			!bookingDate ||
+			!endDate ||
+			!startTime ||
+			!endTime ||
+			!repeatOn ||
+			!selectedDays
+		) {
+			return toast.warning('Please fill all fields');
+		}
 		const newBooking = {
 			id: crypto.randomUUID(),
 			title,
@@ -75,7 +88,7 @@ const AddBookingDialog = ({ open, onOpenChange }) => {
 			end: new Date(formatDateTime(endDate, endTime)),
 		};
 		addEvent(newBooking);
-		console.log('Form Data:', formData);
+		toast.success('Booking successful');
 		onOpenChange(false);
 	};
 
