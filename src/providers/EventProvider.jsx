@@ -6,16 +6,7 @@ const EventProvider = ({ children }) => {
 
 	const addEvent = (newEvent) => {
 		console.log('adding...');
-		setEvents((prev) => [
-			...prev,
-			{
-				title: 'Weekly Meetup',
-				description: 'A friends gathering',
-				start: new Date(2025, 1, 16, 14, 0),
-				end: new Date(2025, 1, 17, 15, 30),
-				id: 2,
-			},
-		]);
+		setEvents((prev) => [...prev, newEvent]);
 	};
 	useEffect(() => {
 		const fetchAndAddBankHolidays = async () => {

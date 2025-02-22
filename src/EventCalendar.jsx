@@ -55,7 +55,7 @@ export default function EventCalendar({ events }) {
 	const [date, setDate] = useState(new Date());
 	return (
 		<div className="flex h-full flex-col">
-			<div className="flex-1 p-6 border">
+			<div className="flex-1 border rounded-xl">
 				<BigCalendar
 					localizer={localizer}
 					events={events}

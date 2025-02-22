@@ -71,8 +71,8 @@ const AddBookingDialog = ({ open, onOpenChange }) => {
 		const newBooking = {
 			id: crypto.randomUUID(),
 			title,
-			start: formatDateTime(bookingDate, startTime),
-			end: formatDateTime(endDate, endTime),
+			start: new Date(formatDateTime(bookingDate, startTime)),
+			end: new Date(formatDateTime(endDate, endTime)),
 		};
 		addEvent(newBooking);
 		console.log('Form Data:', formData);
