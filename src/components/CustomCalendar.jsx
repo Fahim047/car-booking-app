@@ -1,4 +1,4 @@
-import EventCalendar from '@/EventCalendar';
+import EventCalendar from '@/components/EventCalendar';
 import { useEvents } from '@/hooks';
 import { Loader2 } from 'lucide-react';
 

@@ -6,12 +6,8 @@ import startOfWeek from 'date-fns/startOfWeek';
 import { useState } from 'react';
 import { Calendar as BigCalendar, dateFnsLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import CustomToolbar from './components/CustomToolbar';
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from './components/ui/popover';
+import CustomEvent from './CustomEvent';
+import CustomToolbar from './CustomToolbar';
 
 const locales = {
 	'en-US': enUS,
@@ -24,31 +20,6 @@ const localizer = dateFnsLocalizer({
 	getDay,
 	locales,
 });
-const CustomEvent = ({ event }) => {
-	const [isOpen, setIsOpen] = useState(false);
-
-	return (
-		<Popover open={isOpen} onOpenChange={setIsOpen}>
-			<PopoverTrigger
-				asChild
-				onMouseEnter={() => setIsOpen(true)}
-				onMouseLeave={() => setIsOpen(false)}
-			>
-				<p className="text-sm cursor-pointer w-full">{event.title}</p>
-			</PopoverTrigger>
-			<PopoverContent className="w-60 p-4 shadow-lg">
-				<h3 className="font-semibold text-lg">{event.title}</h3>
-				<p className="text-sm text-gray-600">
-					{format(new Date(event.start), 'PPpp')} -{' '}
-					{format(new Date(event.end), 'PPpp')}
-				</p>
-				{event.description && (
-					<p className="text-xs mt-2">{event.description}</p>
-				)}
-			</PopoverContent>
-		</Popover>
-	);
-};
 
 export default function EventCalendar({ events }) {
 	const [view, setView] = useState('month');

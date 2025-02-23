@@ -1,4 +1,4 @@
-import AddBookingDialog from '@/components/AddBooking';
+import BookingFormDialog from '@/components/BookingFormDialog';
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
 import { useState } from 'react';
@@ -15,7 +15,7 @@ const MainLayout = () => {
 					<Header setDialogOpen={setDialogOpen} />
 					<Outlet />
 				</main>
-				<AddBookingDialog open={dialogOpen} onOpenChange={setDialogOpen} />
+				<BookingFormDialog open={dialogOpen} onOpenChange={setDialogOpen} />
 				<Toaster richColors position="top-right" />
 			</div>
 		</>
