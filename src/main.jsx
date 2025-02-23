@@ -5,6 +5,7 @@ import CustomCalendar from './components/CustomCalendar.jsx';
 import NotFound from './components/NotFound.jsx';
 import './index.css';
 import MainLayout from './layouts/MainLayout.jsx';
+import BookingPage from './pages/BookingPage.jsx';
 import EventProvider from './providers/EventProvider.jsx';
 
 createRoot(document.getElementById('root')).render(
@@ -14,6 +15,7 @@ createRoot(document.getElementById('root')).render(
 				<Routes>
 					<Route path="/" element={<MainLayout />}>
 						<Route index element={<CustomCalendar />} />
+						<Route path="add-booking" element={<BookingPage />} />
 						<Route path="*" element={<NotFound />} />
 					</Route>
 				</Routes>

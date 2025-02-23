@@ -1,14 +1,22 @@
 import { Bell, ChevronDown, Menu, MessageSquare, Plus } from 'lucide-react';
 import { useState } from 'react';
+import { useLocation } from 'react-router';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
 
 const Header = ({ setDialogOpen }) => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const { pathname } = useLocation();
+	const text =
+		pathname === '/'
+			? 'Calendar'
+			: pathname === '/workflows'
+			? 'Workflows'
+			: 'Add Booking';
 
 	return (
 		<header className="h-16 py-4 flex items-center justify-between w-full">
-			<h1 className="text-2xl font-semibold">Calendar</h1>
+			<h1 className="text-2xl font-semibold">{text}</h1>
 
 			{/* Desktop Buttons */}
 			<div className="hidden md:flex items-center gap-4">
